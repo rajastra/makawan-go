@@ -1,10 +1,10 @@
 package routers
 
 import (
-	"tubes/controllers"
-	"tubes/midlewares"
 	"io"
 	"os"
+	"tubes/controllers"
+	"tubes/midlewares"
 
 	"github.com/gin-gonic/gin"
 )
@@ -24,6 +24,12 @@ func GetRouter() *gin.Engine {
 	{
 		//GET http://localhost:8080/api/v1/health
 		api.GET("/health", controllers.HealthCheck)
+
+		//  Product
+		// POST http://localhost:8080/api/v1/product
+		api.POST("/product", controllers.CreateProduct)
+		// GET http://localhost:8080/api/v1/product
+		api.GET("/product", controllers.GetAllProduct)
 
 		//http://localhost:8080/api/v1/users
 		groupuser := api.Group("/users")

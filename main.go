@@ -1,14 +1,16 @@
 package main
 
 import (
+	"fmt"
 	_ "tubes/database"
 	"tubes/routers"
-	"fmt"
 
 	_ "net/http/pprof"
 
 	"github.com/go-resty/resty/v2"
 )
+
+// gin gorm
 
 func main() {
 	fmt.Println("Start Server ")

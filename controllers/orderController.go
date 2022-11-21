@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"tubes/apimodels"
-	"tubes/services"
 	"log"
 	"net/http"
+	"tubes/apimodels"
+	"tubes/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,7 +21,6 @@ func CreateOrder(ctx *gin.Context) {
 		res.ResponseCode = "400"
 	}
 	ctx.JSON(http.StatusOK, res)
-	return
 }
 
 // this
