@@ -6,6 +6,7 @@ import (
 	"tubes/controllers"
 	"tubes/midlewares"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -17,7 +18,7 @@ func GetRouter() *gin.Engine {
 	setLogger()
 	router := gin.New()
 	//engine.Use(Logger(), Recovery())
-	router.Use(gin.Recovery(), midlewares.Logger(), midlewares.GenerateIdUnix())
+	router.Use(gin.Recovery(), midlewares.Logger(), midlewares.GenerateIdUnix(), cors.Default())
 
 	//http://localhost:8080/api/v1
 	api := router.Group("/api/v1")
@@ -36,6 +37,8 @@ func GetRouter() *gin.Engine {
 
 		//POST http://localhost:8080/api/v1/users/registrasi
 		groupuser.POST("/registrasi", controllers.Registrasi)
+		// make register enable cors
+		groupuser.Use(midlewares.Cors())
 		//POST http://localhost:8080/api/v1/users/login
 		groupuser.POST("/login", controllers.Login)
 
@@ -54,7 +57,6 @@ func GetRouter() *gin.Engine {
 			//DELETE http://localhost:8080/api/v1/transacation/orders/12345
 			grouptrans.DELETE("/orders/:orderID", controllers.DeleteOrder)
 		}
-
 	}
 
 	return router

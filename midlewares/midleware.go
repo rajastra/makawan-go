@@ -1,13 +1,14 @@
 package midlewares
 
 import (
-	"tubes/auth"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"net/http"
 	"strings"
 	"time"
+	"tubes/auth"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func Logger() gin.HandlerFunc {
@@ -58,6 +59,17 @@ func JWTAuth() gin.HandlerFunc {
 			ctx.Abort()
 			return
 		}
+		ctx.Next()
+	}
+}
+
+func Cors () gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		ctx.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		ctx.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
+		ctx.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		ctx.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
+		ctx.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		ctx.Next()
 	}
 }
